@@ -28,7 +28,7 @@ public class CheckHandTask extends BukkitRunnable {
                             String serialNumber = BanInfo.isBannedItemStack(player, worldName, itemStack);
                             if (serialNumber != null) {
                                 boolean clear = Main.data.getBoolean("BanInfo." + worldName + ".Item." + serialNumber + ".Clear");
-                                String mode = Main.data.getString("BanInfo." + worldName + ".Block." + serialNumber + ".Mode");
+                                String mode = Main.data.getString("BanInfo." + worldName + ".Item." + serialNumber + ".Mode");
                                 new BukkitRunnable() {
 
                                     @Override
@@ -57,7 +57,7 @@ public class CheckHandTask extends BukkitRunnable {
                             String serialNumber = BanInfo.isBannedItemStack(player, worldName, itemStack);
                             if (serialNumber != null) {
                                 boolean clear = Main.data.getBoolean("BanInfo." + worldName + ".Item." + serialNumber + ".Clear");
-                                String mode = Main.data.getString("BanInfo." + worldName + ".Block." + serialNumber + ".Mode");
+                                String mode = Main.data.getString("BanInfo." + worldName + ".Item." + serialNumber + ".Mode");
                                 new BukkitRunnable() {
 
                                     @Override
