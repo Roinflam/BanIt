@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="YukiNoaAPI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../!API/YukiNoaAPI.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../!API/item-nbt-api-plugin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../!API/Spigot-1.12.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../!API/Spigot-1.12.2.jar!/API" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../!API/Spigot-1.12.2.jar!/" />
+    </SOURCES>
+  </library>
+</component>

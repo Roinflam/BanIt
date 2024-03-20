@@ -1,0 +1,118 @@
+#全局世界名
+#请勿创建与这名字一致的世界
+OverAll: OverAll
+
+#禁用时候的默认理由
+DefaultReason: '&c存在BUG'
+
+#/bi nbt的时候是否只显示可以操作的NBT
+CanBeUsedNBT: false
+
+#进服时，是否检测一次没有bi.op权限玩家的背包
+CheckBackPack: true
+
+#每...分钟检测一次所有在线玩家（不包含bi.op权限玩家）的背包
+CheckBackPackTask: true
+#每...秒检测一次
+CheckTime: 1
+
+#是否自动移除不存在的禁用信息
+#通常出现于删除了模组时
+ClearInfo: true
+
+#是否启用重复检测
+HasFlag: true
+
+#当用list打开某个世界列表时，关闭后是否退回到世界选项
+WorldListInterface: true
+
+#开启清理方块优化项
+#如果你ban了方块，会挺有效的降低耗能，但可能会出现一些移除的小问题，虽然说无伤大雅
+OptimizationClearBlock: true
+
+#优化模式
+#开启后禁用检测频率降低，同时耗能降低
+Optimization: true
+
+#物品界面禁用检测
+InventoryCheck: true
+
+#物品被选中被禁用后是否扔出
+DropItem: true
+
+#使用教程
+
+#参数部分
+#参数标识请全用小写
+#除理由外，每个参数可以缩写成一个字符
+#如use:right缩写为u:r，world:DIM7为w:DIM7
+
+#通用参数
+#世界相关
+#world:世界名  这个配置只应用到这个世界里
+#理由相关
+#reason:理由（支持颜色代码）
+
+
+#物品参数
+
+#没收相关
+#clear:false  这个物品不会被没收
+#使用相关
+#use:right  这个物品禁止右键
+#use:left  这个物品禁止左键
+#use:place  这个物品禁止放置
+#use:craft  这个物品禁止合成（可能不兼容模组工作台合成）
+#use:drop  这个物品禁止丢弃
+#use:main 这个物品禁止放主手
+#use:off 这个物品禁止放副手
+#范围相关
+#range:all  包括所有子ID
+#range:exactly  完全符合
+
+
+#方块参数
+
+#世界删除相关
+#clear:false  这个方块不会被删除
+#交互相关
+#use:interact  这个方块禁止使用
+#use:break  这个方块禁止破坏
+#use:place  这个方块禁止放置
+#范围相关
+#range:occupation  不区分NBT
+#range:all  不区分NBT也不区分子ID
+
+
+#生物参数
+
+#范围相关（版本为1.7时无法区分）
+#range:sort  禁用这个生物模组下的所有生物
+#range:name  禁用所有模组下的这个生物
+
+
+#附魔参数
+
+#等级相关
+#level:<数值  禁用小于这个数值等级的这个附魔（就是相同附魔，等级小于这个参数数值会被禁用）
+#level:>数值  禁用大于这个数值等级的这个附魔（就是相同附魔，等级大于这个参数数值会被禁用）
+#level:数值  禁用这个附魔的等级（就是相同附魔，等级相同参数数值会被禁用）
+#世界删除相关
+#clear:false  这个附魔不会被删除
+#使用相关
+#use:right  这个物品禁止右键
+#use:left  这个物品禁止左键
+#use:drop  这个物品禁止丢弃OptimizationClearBlock
+
+
+
+#NBT操作部分
+#使用/bi nbt就会显示手上物品第一级的nbt列表
+#选择要禁用的那行nbt点击，输入框内容会替换为/bi add k:这个nbt的键 v:这个nbt的值
+#k和v参数为这个nbt的信息，这时候你可以回车确认或者自己再加其他参数，只是帮你把nbt的参数输入进去
+#如果这个nbt的值为数字，前面可手动加>或<，意为禁用掉这个值>这个数值的物品，反之亦然（不加为=）
+
+#其他
+#检测顺序为 这个世界的名单->全局名单（符合则暂停继续检测）
+#删除ban的记录请以OP状态打开ban表gui，点击对应图标删除
+#如果你想给某个人被ban物品的所有权限（无视这条ban的记录），那么，给它'bi.ignore.禁用编号'权限就彳亍
