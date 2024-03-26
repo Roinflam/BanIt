@@ -1,0 +1,16 @@
+name: BanIt
+main: pers.tany.banit.Main
+version: 1.1.4
+author: tany
+description: 多方面禁用
+depend: [ YukiNoaAPI ]
+api-version: 1.13
+commands:
+  BanIt:
+    usage: /BanIt
+    aliases: [ bi ]
+permissions:
+  bi.list:
+    default: true
+  bi.op:
+    default: op
