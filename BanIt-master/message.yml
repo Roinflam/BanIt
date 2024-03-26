@@ -1,0 +1,161 @@
+WorldListTitle: '&7「&f世界选择&7」共[number]个世界配置'
+
+WorldListName: '&7「&f[world]世界&7」'
+
+WorldListLore:
+  - '&8&l为所有配置过的世界，点击可查看对应世界禁用配置'
+
+WorldListItemLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6所有禁用 &f&l丨 &c&l[allNumber]条'
+  - '&8&l|○| &6物品禁用 &f&l丨 &a&l[itemNumber]条'
+  - '&8&l|○| &6方块禁用 &f&l丨 &b&l[blockNumber]条'
+  - '&8&l|○| &6生物禁用 &f&l丨 &9&l[entityNumber]条'
+  - '&8&l|○| &6附魔禁用 &f&l丨 &5&l[enchNumber]条'
+  - '&8&l&m                              '
+
+ListTitle: '&7「&f[world]&7」 共[number]条配置'
+
+ListLore:
+  - '&f&l上面为所有被禁用的&a&l物品&7&l/&b&l方块&7&l/&9&l生物/&5&l附魔&f&l信息'
+
+ListItemLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &a&l物品'
+  - '&8&l|○| &6编号 &f&l丨 &3&l[number]'
+  - '&8&l|○| &6禁用ID &f&l丨 &b[id]:[durability]'
+  - '&8&l|○| &6NBT数据 &f&l丨 &3&l键：&b[key] &3&l值：&b[value]'
+  - '&8&l|○| &6是否没收 &f&l丨 &3[clear]'
+  - '&8&l|○| &6禁止操作类型 &f&l丨 &c[mode]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListItemAllLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &a&l物品'
+  - '&8&l|○| &6编号 &f&l丨 &3&l[number]'
+  - '&8&l|○| &6禁用主ID &f&l丨 &b[id]'
+  - '&8&l|○| &6NBT数据 &f&l丨 &3&l键：&b[key] &3&l值：&b[value]'
+  - '&8&l|○| &6是否没收 &f&l丨 &3[clear]'
+  - '&8&l|○| &6禁止操作类型 &f&l丨 &c[mode]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListItemExactLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &a&l物品'
+  - '&8&l|○| &6编号 &f&l丨 &3&l[number]'
+  - '&8&l|○| &6NBT数据 &f&l丨 &3&l键：&b[key] &3&l值：&b[value]'
+  - '&8&l|○| &6是否没收 &f&l丨 &3[clear]'
+  - '&8&l|○| &6禁止操作类型 &f&l丨 &c[mode]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListBlockLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &b&l方块'
+  - '&8&l|○| &6编号 &f&l丨 &3&l [number]'
+  - '&8&l|○| &6禁用ID &f&l丨 &b[id]:[data]'
+  - '&8&l|○| &6Tile数据 &f&l丨 &b[tileID]'
+  - '&8&l|○| &6TileName数据 &f&l丨 &b[subTileName]'
+  - '&8&l|○| &6是否没收 &f&l丨 &3[clear]'
+  - '&8&l|○| &6禁止操作类型 &f&l丨 &c[mode]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListBlockAllLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &b&l方块'
+  - '&8&l|○| &6编号 &f&l丨 &3&l[number]'
+  - '&8&l|○| &6禁用主ID &f&l丨 &b[id]'
+  - '&8&l|○| &6是否没收 &f&l丨 &3[clear]'
+  - '&8&l|○| &6禁止操作类型 &f&l丨 &c[mode]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListBlockExactLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &b&l方块'
+  - '&8&l|○| &6编号 &f&l丨 &3&l[number]'
+  - '&8&l|○| &6禁用ID &f&l丨 &b[id]:[data]'
+  - '&8&l|○| &6是否没收 &f&l丨 &3[clear]'
+  - '&8&l|○| &6禁止操作类型 &f&l丨 &c[mode]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListEntityLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &9&l生物'
+  - '&8&l|○| &6编号 &f&l丨  &3&l[number]'
+  - '&8&l|○| &6禁用生物类型 &f&l丨 &a[species]'
+  - '&8&l|○| &6禁用生物名称 &f&l丨 &a[name]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListEntitySpeciesLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &9&l生物'
+  - '&8&l|○| &6编号 &f&l丨  &3&l[number]'
+  - '&8&l|○| &6禁用生物类型 &f&l丨 &a[species]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListEntityNameLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &9&l生物'
+  - '&8&l|○| &6编号 &f&l丨  &3&l[number]'
+  - '&8&l|○| &6禁用生物名称 &f&l丨 &a[name]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ListEnchLore:
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用类型 &f&l丨 &5&l附魔'
+  - '&8&l|○| &6编号 &f&l丨 &3&l[number]'
+  - '&8&l|○| &6禁用等级 &f&l丨 &b[level]'
+  - '&8&l|○| &6是否没收 &f&l丨 &3[clear]'
+  - '&8&l|○| &6禁止操作类型 &f&l丨 &c[mode]'
+  - '&8&l&m                              '
+  - '&8&l|○| &6禁用理由&f&l：'
+  - '        &f“&c[reason]&f”'
+  - '&8&l&m                              '
+
+ItemClearMessage: '&7「&f禁用系统&7」&c此物品已被禁用！已没收！'
+ItemNoAllMessage: '&7「&f禁用系统&7」&c此物品已被禁止所有操作！'
+ItemNoRightMessage: '&7「&f禁用系统&7」&c此物品已被禁止右键操作！'
+ItemNoLeftMessage: '&7「&f禁用系统&7」&c此物品已被禁止左键操作！'
+ItemNoPlaceMessage: '&7「&f禁用系统&7」&c此物品已被禁止放置操作！'
+ItemNoCraftMessage: '&7「&f禁用系统&7」&c此物品已被禁止合成操作！'
+ItemNoDropMessage: '&7「&f禁用系统&7」&c此物品已被禁止丢弃操作！'
+ItemNoMainMessage: '&7「&f禁用系统&7」&c此物品已被禁止主手操作！'
+ItemNoOffMessage: '&7「&f禁用系统&7」&c此物品已被禁止副手操作！'
+
+BlockClearMessage: '&7「&f禁用系统&7」&c此方块已被禁用！已移除！'
+BlockNoAllMessage: '&7「&f禁用系统&7」&c此方块已被禁止所有操作！'
+BlockNoInteractMessage: '&7「&f禁用系统&7」&c此方块已被禁止交互！'
+BlockNoBreakMessage: '&7「&f禁用系统&7」&c此方块已被禁止破坏！'
+BlockNoPlaceMessage: '&7「&f禁用系统&7」&c此方块已被禁止放置！'
+
+EnchClearMessage: '&7「&f禁用系统&7」&c此附魔已被禁用！已移除！'
+EnchNoAllMessage: '&7「&f禁用系统&7」&c此附魔已被禁止所有操作！'
+EnchNoRightMessage: '&7「&f禁用系统&7」&c此附魔已被禁止右键操作！'
+EnchNoLeftMessage: '&7「&f禁用系统&7」&c此附魔已被禁止左键操作！'
+EnchNoDropMessage: '&7「&f禁用系统&7」&c此附魔已被禁止丢弃操作！'
