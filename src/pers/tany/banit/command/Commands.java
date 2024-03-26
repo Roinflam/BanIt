@@ -5,6 +5,8 @@ import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTList;
 import de.tr7zw.nbtapi.NBTListCompound;
 import de.tr7zw.nbtapi.NBTTileEntity;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -43,6 +45,9 @@ import pers.tany.yukinoaapi.realizationpart.player.SelectEntity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static net.minecraft.server.v1_12_R1.SoundEffects.de;
+import static org.bukkit.Bukkit.getLogger;
 
 public class Commands implements CommandExecutor {
 
@@ -175,6 +180,14 @@ public class Commands implements CommandExecutor {
                         }
                     }
                 }
+                String message = "§7「§fNBT信息§7」§3完整NBT数据："+ "   复制到输入框";
+                String NBTData = nbtItem.toString().replaceAll("\"", "");
+                if (NBTData.length() <= 256){
+                    IBungee.sendPartShowCommandMessage(player, message, "复制到输入框", "§f§l『复制到输入框』", "§a点击复制到聊天框：\n§f" + NBTData, NBTData, false);
+                }else{
+                    IBungee.sendPartShowCommandMessage(player, message, "复制到输入框", "§f§l『输出到控制台』", "§a点击输出到控制台：\n§f" + NBTData,"/banit nbt outputToConsole", true);
+                }
+
                 return true;
             }
             if (args[0].equalsIgnoreCase("ench")) {
@@ -229,6 +242,17 @@ public class Commands implements CommandExecutor {
             }
         }
         if (args.length == 2) {
+            //输出手中物品nbt信息到控制台
+            if (args[0].equalsIgnoreCase("nbt")) {
+                if (args[1].equalsIgnoreCase("outputToConsole")) {
+                    ItemStack itemStack = player.getItemInHand();
+                    NBTItem nbtItem = new NBTItem(itemStack);
+                    String NBTData = nbtItem.toString().replaceAll("\"", "");
+                    getLogger().info("§3玩家 §b"+player.getName()+" §3手中物品的完整NBT数据:\n§f"+NBTData);
+                    player.sendMessage("§a输出成功!");
+                    return true;
+                }
+            }
             if (args[0].equalsIgnoreCase("list")) {
                 if (!player.hasPermission("bi.list")) {
                     player.sendMessage("§c你没有权限使用此指令！");
@@ -458,6 +482,12 @@ public class Commands implements CommandExecutor {
                 for (String f : flag) {
                     if (f.startsWith("v:") || f.startsWith("value:")) {
                         Main.data.set("BanInfo." + worldName + ".Item." + serialNumber + ".Value", f.replace("value:", "").replace("v:", ""));
+                        break;
+                    }
+                }
+                for (String f : flag) {
+                    if (f.startsWith("fn:") || f.startsWith("fuzzynbt:")) {
+                        Main.data.set("BanInfo." + worldName + ".Item." + serialNumber + ".FuzzyNBT", f.replaceFirst("fuzzynbt:", "").replaceFirst("fn:", ""));
                         break;
                     }
                 }

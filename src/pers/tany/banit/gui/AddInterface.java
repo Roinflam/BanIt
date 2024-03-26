@@ -113,6 +113,12 @@ public class AddInterface implements InventoryHolder, Listener {
                                 break;
                             }
                         }
+                        for (String f : flag) {
+                            if (f.startsWith("fn:") || f.startsWith("fuzzynbt:")) {
+                                Main.data.set("BanInfo." + worldName + ".Item." + serialNumber + ".FuzzyNBT", f.replaceFirst("fuzzynbt:", "").replaceFirst("fn:", ""));
+                                break;
+                            }
+                        }
                         if (Main.config.getBoolean("HasFlag") && BanInfo.hasFlag(serialNumber)) {
                             player.sendMessage("§7「§fBanIt§7」§c" + IItem.getName(itemStack) + "物品已被此方法禁用过了！");
                             Main.data.set("BanInfo." + worldName + ".Item." + serialNumber, null);
