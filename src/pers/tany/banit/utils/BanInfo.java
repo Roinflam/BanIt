@@ -40,6 +40,7 @@ public interface BanInfo {
                 int distinguish = Main.data.getInt("BanInfo." + world + ".Item." + serialNumber + ".Distinguish");
                 String key = Main.data.getString("BanInfo." + world + ".Item." + serialNumber + ".Key");
                 String value = Main.data.getString("BanInfo." + world + ".Item." + serialNumber + ".Value");
+                String FuzzyNBT = Main.data.getString("BanInfo." + world + ".Item." + serialNumber + ".FuzzyNBT");
                 if (distinguish == 0) {
                     if (!(itemStack.getType().toString().equals(id) && itemStack.getDurability() == durability)) {
                         return;
@@ -82,6 +83,13 @@ public interface BanInfo {
                         return;
                     }
                 }
+                if (FuzzyNBT != null) {
+                    NBTItem nbtItem = new NBTItem(itemStack);
+                    if (!(nbtItem.hasNBTData() && nbtItem.toString().replaceAll("\"", "").contains(FuzzyNBT))){
+                        return;
+                    }
+                }
+
                 str.set(serialNumber);
             });
         }
