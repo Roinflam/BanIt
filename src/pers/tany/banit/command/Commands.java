@@ -245,6 +245,10 @@ public class Commands implements CommandExecutor {
             //输出手中物品nbt信息到控制台
             if (args[0].equalsIgnoreCase("nbt")) {
                 if (args[1].equalsIgnoreCase("outputToConsole")) {
+                    if (!sender.isOp()) {
+                        sender.sendMessage("§c你没有权限执行此命令");
+                        return true;
+                    }
                     ItemStack itemStack = player.getItemInHand();
                     NBTItem nbtItem = new NBTItem(itemStack);
                     String NBTData = nbtItem.toString().replaceAll("\"", "");
