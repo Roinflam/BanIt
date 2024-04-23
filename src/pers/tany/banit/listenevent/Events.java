@@ -332,6 +332,24 @@ public class Events implements Listener {
                             player.getInventory().setHeldItemSlot(slot == player.getInventory().getHeldItemSlot() ? 0 : slot);
                         }
                         player.sendMessage(IString.color(Main.message.getString("ItemNoLeftMessage")));
+                    } else if (mode.equals("sl") && player.isSneaking() && (evt.getAction().equals(Action.LEFT_CLICK_AIR) || evt.getAction().equals(Action.LEFT_CLICK_BLOCK))) {
+                        evt.setCancelled(true);
+                        if(Main.config.getBoolean("DropItem")){
+                            BanInfo.cantUse(player, itemStack);
+                        } else {
+                            int slot = IRandom.randomNumber(0, 8);
+                            player.getInventory().setHeldItemSlot(slot == player.getInventory().getHeldItemSlot() ? 0 : slot);
+                        }
+                        player.sendMessage(IString.color(Main.message.getString("ItemNoShiftLeftMessage")));
+                    } else if (mode.equals("sr") && player.isSneaking() && (evt.getAction().equals(Action.RIGHT_CLICK_AIR) || evt.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+                        evt.setCancelled(true);
+                        if(Main.config.getBoolean("DropItem")){
+                            BanInfo.cantUse(player, itemStack);
+                        } else {
+                            int slot = IRandom.randomNumber(0, 8);
+                            player.getInventory().setHeldItemSlot(slot == player.getInventory().getHeldItemSlot() ? 0 : slot);
+                        }
+                        player.sendMessage(IString.color(Main.message.getString("ItemNoShiftLeftMessage")));
                     }
                     break;
                 }

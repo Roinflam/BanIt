@@ -61,6 +61,8 @@ DropItem: true
 #使用相关
 #use:right  这个物品禁止右键
 #use:left  这个物品禁止左键
+#use:shiftright  这个物品禁止Shift+右键（缩写u:sr）
+#use:shiftleft  这个物品禁止Shift+左键（缩写u:sl）
 #use:place  这个物品禁止放置
 #use:craft  这个物品禁止合成（可能不兼容模组工作台合成）
 #use:drop  这个物品禁止丢弃

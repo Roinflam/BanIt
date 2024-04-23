@@ -182,8 +182,14 @@ public class ListInterface implements InventoryHolder, Listener {
                                     case "r":
                                         lore = IList.listReplace(lore, "[mode]", "右键");
                                         break;
+                                    case "sr":
+                                        lore = IList.listReplace(lore, "[mode]", "Shift+右键");
+                                        break;
                                     case "l":
                                         lore = IList.listReplace(lore, "[mode]", "左键");
+                                        break;
+                                    case "sl":
+                                        lore = IList.listReplace(lore, "[mode]", "Shift+左键");
                                         break;
                                     case "p":
                                         lore = IList.listReplace(lore, "[mode]", "放置");

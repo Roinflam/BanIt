@@ -62,8 +62,12 @@ public class AddInterface implements InventoryHolder, Listener {
                         }
                         if (flag.contains("u:r") || flag.contains("use:right")) {
                             mode = "r";
+                        } else if (flag.contains("u:sr") || flag.contains("use:shiftright")) {
+                            mode = "sr";
                         } else if (flag.contains("u:l") || flag.contains("use:left")) {
                             mode = "l";
+                        } else if (flag.contains("u:sl") || flag.contains("use:shiftleft")) {
+                            mode = "sl";
                         } else if (flag.contains("u:p") || flag.contains("use:place")) {
                             mode = "p";
                         } else if (flag.contains("u:c") || flag.contains("use:craft")) {
