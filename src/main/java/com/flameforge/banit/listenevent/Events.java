@@ -452,6 +452,14 @@ public class Events implements Listener {
                         evt.setCancelled(true);
                         handleCantUse(player, itemStack);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-no-left", "reason", reason));
+                    } else if (mode.equals("sr") && player.isSneaking() && (evt.getAction().equals(Action.RIGHT_CLICK_AIR) || evt.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+                        evt.setCancelled(true);
+                        handleCantUse(player, itemStack);
+                        player.sendMessage(languageManager.getMessageBracket("message.ench-no-shift-right", "reason", reason));
+                    } else if (mode.equals("sl") && player.isSneaking() && (evt.getAction().equals(Action.LEFT_CLICK_AIR) || evt.getAction().equals(Action.LEFT_CLICK_BLOCK))) {
+                        evt.setCancelled(true);
+                        handleCantUse(player, itemStack);
+                        player.sendMessage(languageManager.getMessageBracket("message.ench-no-shift-left", "reason", reason));
                     }
                     break;
                 }
@@ -481,6 +489,14 @@ public class Events implements Listener {
                         evt.setCancelled(true);
                         handleCantUse(player, itemStack);
                         player.sendMessage(languageManager.getMessageBracket("message.item-no-left", "reason", reason));
+                    } else if (mode.equals("sr") && player.isSneaking() && (evt.getAction().equals(Action.RIGHT_CLICK_AIR) || evt.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+                        evt.setCancelled(true);
+                        handleCantUse(player, itemStack);
+                        player.sendMessage(languageManager.getMessageBracket("message.item-no-shift-right", "reason", reason));
+                    } else if (mode.equals("sl") && player.isSneaking() && (evt.getAction().equals(Action.LEFT_CLICK_AIR) || evt.getAction().equals(Action.LEFT_CLICK_BLOCK))) {
+                        evt.setCancelled(true);
+                        handleCantUse(player, itemStack);
+                        player.sendMessage(languageManager.getMessageBracket("message.item-no-shift-left", "reason", reason));
                     }
                     break;
                 }
@@ -604,7 +620,7 @@ public class Events implements Listener {
                         evt.setCancelled(true);
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
-                    } else if (mode.equals("a") || mode.equals("r")) {
+                    } else if (mode.equals("a") || mode.equals("r") || (mode.equals("sr") && player.isSneaking())) {
                         evt.setCancelled(true);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-no-all", "reason", reason));
                     }
@@ -694,7 +710,7 @@ public class Events implements Listener {
                         evt.setCancelled(true);
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
-                    } else if (mode.equals("a") || mode.equals("l")) {
+                    } else if (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking())) {
                         evt.setCancelled(true);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-no-all", "reason", reason));
                     }
@@ -712,7 +728,7 @@ public class Events implements Listener {
                         evt.setCancelled(true);
                         player.setItemInHand(null);
                         player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
-                    } else if (mode.equals("a") || mode.equals("l")) {
+                    } else if (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking())) {
                         evt.setCancelled(true);
                         player.sendMessage(languageManager.getMessageBracket("message.item-no-all", "reason", reason));
                     }
@@ -860,7 +876,7 @@ public class Events implements Listener {
                             evt.setCancelled(true);
                             itemStack.removeEnchantment(ench);
                             player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
-                        } else if (mode.equals("a") || mode.equals("l")) {
+                        } else if (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking())) {
                             evt.setCancelled(true);
                             handleCantUse(player, itemStack);
                             player.sendMessage(languageManager.getMessageBracket("message.ench-no-all", "reason", reason));
@@ -916,6 +932,7 @@ public class Events implements Listener {
                                 itemStack.removeEnchantment(ench);
                                 player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
                             } else if (mode.equals("a") || mode.equals("r")) {
+                                // 不看 sr：这里是抛射物命中的时候，射手此刻蹲没蹲和射出去时无关；潜行时拉弓 / 扔出已经在右键那一步拦下
                                 evt.setCancelled(true);
                                 handleCantUse(player, itemStack);
                                 player.sendMessage(languageManager.getMessageBracket("message.ench-no-all", "reason", reason));

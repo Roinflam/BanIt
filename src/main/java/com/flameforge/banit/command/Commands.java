@@ -522,6 +522,12 @@ public class Commands implements CommandExecutor {
             mode = "r";
         } else if (flag.contains("use:left")) {
             mode = "l";
+        } else if (flag.contains("use:shiftright")) {
+            // 只在潜行时禁止右键
+            mode = "sr";
+        } else if (flag.contains("use:shiftleft")) {
+            // 只在潜行时禁止左键
+            mode = "sl";
         } else if (flag.contains("use:place")) {
             mode = "p";
         } else if (flag.contains("use:craft")) {
@@ -886,6 +892,10 @@ public class Commands implements CommandExecutor {
             mode = "r";
         } else if (flag.contains("use:left")) {
             mode = "l";
+        } else if (flag.contains("use:shiftright")) {
+            mode = "sr";
+        } else if (flag.contains("use:shiftleft")) {
+            mode = "sl";
         } else if (flag.contains("use:drop")) {
             mode = "d";
         }

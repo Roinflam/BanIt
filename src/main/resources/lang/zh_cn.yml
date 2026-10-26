@@ -85,6 +85,8 @@ message:
   item-no-all: "&7[&fBanIt&7] &7你不能使用该物品 &7原因：&f{reason}"
   item-no-right: "&7[&fBanIt&7] &7你不能右键使用该物品 &7原因：&f{reason}"
   item-no-left: "&7[&fBanIt&7] &7你不能左键使用该物品 &7原因：&f{reason}"
+  item-no-shift-right: "&7[&fBanIt&7] &7你不能潜行时右键使用该物品 &7原因：&f{reason}"
+  item-no-shift-left: "&7[&fBanIt&7] &7你不能潜行时左键使用该物品 &7原因：&f{reason}"
   item-no-place: "&7[&fBanIt&7] &7你不能放置该物品 &7原因：&f{reason}"
   item-no-craft: "&7[&fBanIt&7] &7你不能合成该物品 &7原因：&f{reason}"
   item-no-drop: "&7[&fBanIt&7] &7你不能丢弃该物品 &7原因：&f{reason}"
@@ -100,6 +102,8 @@ message:
   ench-no-all: "&7[&fBanIt&7] &7你不能使用带有该附魔的物品 &7原因：&f{reason}"
   ench-no-right: "&7[&fBanIt&7] &7你不能右键使用该附魔 &7原因：&f{reason}"
   ench-no-left: "&7[&fBanIt&7] &7你不能左键使用该附魔 &7原因：&f{reason}"
+  ench-no-shift-right: "&7[&fBanIt&7] &7你不能潜行时右键使用该附魔 &7原因：&f{reason}"
+  ench-no-shift-left: "&7[&fBanIt&7] &7你不能潜行时左键使用该附魔 &7原因：&f{reason}"
   ench-no-drop: "&7[&fBanIt&7] &7你不能丢弃带有该附魔的物品 &7原因：&f{reason}"
 
 # ==================== GUI 消息 ====================
@@ -259,6 +263,8 @@ mode:
   all: "&b全部"
   right: "&b右键"
   left: "&b左键"
+  shift-right: "&b潜行右键"
+  shift-left: "&b潜行左键"
   place: "&b放置"
   craft: "&b合成"
   drop: "&b丢弃"

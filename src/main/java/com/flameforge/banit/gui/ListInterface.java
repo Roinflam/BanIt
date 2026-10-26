@@ -490,6 +490,10 @@ public class ListInterface implements InventoryHolder, Listener {
                 return languageManager.getMessage("mode.right");
             case "l":
                 return languageManager.getMessage("mode.left");
+            case "sr":
+                return languageManager.getMessage("mode.shift-right");
+            case "sl":
+                return languageManager.getMessage("mode.shift-left");
             case "p":
                 return languageManager.getMessage("mode.place");
             case "c":

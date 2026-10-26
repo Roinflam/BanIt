@@ -7,6 +7,7 @@ import pers.tany.yukinoaapi.interfacepart.configuration.IConfig;
 import pers.tany.yukinoaapi.interfacepart.other.IString;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -90,17 +91,41 @@ public class LanguageManager {
 
         this.langConfig = targetLangConfig;
 
+        // 缺的键先回退到 jar 里同一种语言的文件，再回退到英文。插件更新后，服里早先释放出来的语言文件没有新加的键，
+        // 主版本号不变时也不会覆盖它；只回退英文的话，中文服的新提示会变成英文
         try {
-            InputStream defStream = plugin.getResource("lang/" + DEFAULT_LANGUAGE + ".yml");
-            if (defStream != null) {
-                FileConfiguration defConfig = YamlConfiguration.loadConfiguration(
-                        new InputStreamReader(defStream, StandardCharsets.UTF_8));
-                langConfig.setDefaults(defConfig);
-                defStream.close();
+            FileConfiguration fallback = loadBundledLanguage(DEFAULT_LANGUAGE);
+            if (!DEFAULT_LANGUAGE.equals(currentLanguage)) {
+                FileConfiguration bundled = loadBundledLanguage(currentLanguage);
+                if (bundled != null) {
+                    if (fallback != null) {
+                        bundled.setDefaults(fallback);
+                    }
+                    fallback = bundled;
+                }
+            }
+            if (fallback != null) {
+                langConfig.setDefaults(fallback);
             }
         } catch (Exception e) {
             plugin.getServer().getConsoleSender().sendMessage(
                     "§e[BanIt] Failed to load default language fallback: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 读取 jar 里自带的语言文件
+     *
+     * @param langCode 语言代码
+     * @return 语言配置，jar 里没有这种语言时返回 null
+     */
+    private FileConfiguration loadBundledLanguage(String langCode) throws IOException {
+        InputStream stream = plugin.getResource("lang/" + langCode + ".yml");
+        if (stream == null) {
+            return null;
+        }
+        try (InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
+            return YamlConfiguration.loadConfiguration(reader);
         }
     }
 

@@ -85,6 +85,8 @@ message:
   item-no-all: "&7[&fBanIt&7] &7You cannot use this item &7Reason: &f{reason}"
   item-no-right: "&7[&fBanIt&7] &7You cannot right-click with this item &7Reason: &f{reason}"
   item-no-left: "&7[&fBanIt&7] &7You cannot left-click with this item &7Reason: &f{reason}"
+  item-no-shift-right: "&7[&fBanIt&7] &7You cannot right-click with this item while sneaking &7Reason: &f{reason}"
+  item-no-shift-left: "&7[&fBanIt&7] &7You cannot left-click with this item while sneaking &7Reason: &f{reason}"
   item-no-place: "&7[&fBanIt&7] &7You cannot place this item &7Reason: &f{reason}"
   item-no-craft: "&7[&fBanIt&7] &7You cannot craft this item &7Reason: &f{reason}"
   item-no-drop: "&7[&fBanIt&7] &7You cannot drop this item &7Reason: &f{reason}"
@@ -100,6 +102,8 @@ message:
   ench-no-all: "&7[&fBanIt&7] &7You cannot use items with this enchantment &7Reason: &f{reason}"
   ench-no-right: "&7[&fBanIt&7] &7You cannot right-click with this enchantment &7Reason: &f{reason}"
   ench-no-left: "&7[&fBanIt&7] &7You cannot left-click with this enchantment &7Reason: &f{reason}"
+  ench-no-shift-right: "&7[&fBanIt&7] &7You cannot right-click with this enchantment while sneaking &7Reason: &f{reason}"
+  ench-no-shift-left: "&7[&fBanIt&7] &7You cannot left-click with this enchantment while sneaking &7Reason: &f{reason}"
   ench-no-drop: "&7[&fBanIt&7] &7You cannot drop items with this enchantment &7Reason: &f{reason}"
 
 # ==================== GUI Messages ====================
@@ -259,6 +263,8 @@ mode:
   all: "&bAll"
   right: "&bRight Click"
   left: "&bLeft Click"
+  shift-right: "&bSneak + Right Click"
+  shift-left: "&bSneak + Left Click"
   place: "&bPlace"
   craft: "&bCraft"
   drop: "&bDrop"

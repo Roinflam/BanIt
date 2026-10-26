@@ -246,6 +246,8 @@ BlockCheck:
 #   all   = 所有操作
 #   right = 右键使用
 #   left  = 左键攻击
+#   shiftright = 潜行（按住 Shift）时右键使用
+#   shiftleft  = 潜行（按住 Shift）时左键攻击
 #   place = 放置方块
 #   craft = 合成
 #   drop  = 丢弃
@@ -326,6 +328,8 @@ BlockCheck:
 #   all   = 所有操作
 #   right = 右键使用
 #   left  = 左键攻击
+#   shiftright = 潜行（按住 Shift）时右键使用
+#   shiftleft  = 潜行（按住 Shift）时左键攻击
 #   drop  = 丢弃
 # reason:<理由>           - 自定义禁用理由
 # level:<等级>            - 等级限制

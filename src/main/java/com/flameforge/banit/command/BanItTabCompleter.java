@@ -210,6 +210,8 @@ public class BanItTabCompleter implements TabCompleter {
                             paramName + ":all",
                             paramName + ":right",
                             paramName + ":left",
+                            paramName + ":shiftright",
+                            paramName + ":shiftleft",
                             paramName + ":drop"
                     ));
                 } else {
@@ -218,6 +220,8 @@ public class BanItTabCompleter implements TabCompleter {
                             paramName + ":all",
                             paramName + ":right",
                             paramName + ":left",
+                            paramName + ":shiftright",
+                            paramName + ":shiftleft",
                             paramName + ":place",
                             paramName + ":craft",
                             paramName + ":drop",
