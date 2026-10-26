@@ -1,0 +1,28 @@
+name: BanIt
+version: '3.0.0'
+main: com.flameforge.banit.Banit
+api-version: 1.13
+author: Roinflam
+description: 一个强大的物品/方块/实体/附魔禁用插件
+website: https://github.com/Roinflam/BanIt
+softdepend: [ YukiNoaAPI ]
+commands:
+  banit:
+    description: BanIt 主命令
+    aliases: [ bi ]
+    usage: /<command> [参数]
+    permission: bi.use
+
+permissions:
+  bi.use:
+    description: 允许使用 BanIt 基础命令
+    default: true
+  bi.list:
+    description: 允许查看禁用列表
+    default: true
+  bi.op:
+    description: 绕过所有物品禁用并允许使用管理员命令
+    default: op
+  bi.ignore.*:
+    description: 绕过特定物品的禁用
+    default: false

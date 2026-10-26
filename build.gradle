@@ -1,0 +1,157 @@
+plugins {
+    id 'java'
+}
+
+// ========================================
+// 从 settings.gradle 读取项目配置
+// ========================================
+group = 'com.flameforge'
+version = gradle.ext.projectVersion
+
+// 配置项目的依赖仓库
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+// 项目依赖配置
+dependencies {
+    compileOnly 'org.xerial:sqlite-jdbc:3.42.0.0'
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+    compileOnly 'org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+// 设置Java版本
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+// 配置Java编译任务
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+
+// ========================================
+// 自动更新 plugin.yml 的版本号
+// ========================================
+task updatePluginYml {
+    doLast {
+        def pluginYml = file('src/main/resources/plugin.yml')
+        if (!pluginYml.exists()) {
+            println "警告: plugin.yml 文件不存在"
+            return
+        }
+
+        def lines = pluginYml.readLines()
+        def writer = new PrintWriter(pluginYml, 'UTF-8')
+
+        lines.each { line ->
+            if (line.startsWith('version:')) {
+                writer.println("version: '${gradle.ext.projectVersion}'")
+            } else {
+                writer.println(line)
+            }
+        }
+
+        writer.close()
+        println "✓ 已更新 plugin.yml 版本为 ${gradle.ext.projectVersion}"
+    }
+}
+
+// ========================================
+// 自动更新 config.yml 的 ConfigVersion
+// ========================================
+task updateConfigYml {
+    doLast {
+        def configYml = file('src/main/resources/config.yml')
+        if (!configYml.exists()) {
+            println "警告: config.yml 文件不存在"
+            return
+        }
+
+        def lines = configYml.readLines()
+        def writer = new PrintWriter(configYml, 'UTF-8')
+
+        lines.each { line ->
+            if (line.startsWith('ConfigVersion:')) {
+                writer.println("ConfigVersion: '${gradle.ext.projectVersion}'")
+            } else {
+                writer.println(line)
+            }
+        }
+
+        writer.close()
+        println "✓ 已更新 config.yml ConfigVersion 为 ${gradle.ext.projectVersion}"
+    }
+}
+
+// ========================================
+// 配置资源处理任务
+// ========================================
+processResources {
+    filteringCharset 'UTF-8'
+
+    doLast {
+        println "✓ 资源处理完成"
+    }
+}
+
+// 确保在处理资源之前更新配置文件
+processResources.dependsOn updatePluginYml, updateConfigYml
+
+// ========================================
+// 配置JAR任务
+// ========================================
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from sourceSets.main.output
+
+    from {
+        configurations.runtimeClasspath
+                .findAll { !it.name.endsWith('jar') || !it.path.startsWith(project.file('libs').path) }
+                .collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    doLast {
+        println "✓ JAR 文件已创建: ${archiveFileName.get()}"
+    }
+}
+
+// ========================================
+// 添加源代码和文档JAR任务
+// ========================================
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+tasks.register('javadocJar', Jar) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+}

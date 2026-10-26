@@ -1,0 +1,14 @@
+rootProject.name = 'Banit'
+
+// ========================================
+// 项目配置中心
+// 只需要在这里修改项目名和版本号
+// 其他配置请直接在 plugin.yml 中修改
+// ========================================
+gradle.ext {
+    // 项目名称
+    projectName = 'Banit'
+
+    // 项目版本（会同步到 plugin.yml 和 config.yml）
+    projectVersion = '3.0.0'
+}

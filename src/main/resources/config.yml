@@ -1,0 +1,361 @@
+# config.yml
+
+# ========================================
+# Configuration file version - DO NOT MODIFY!
+# Config files will only be overwritten when the MAJOR version number (first digit) changes
+# Example: 1.x.x → 2.0.0 will overwrite, but 1.0.0 → 1.1.0 will not
+# ----------------------------------------
+# 配置文件版本号 - 请勿修改！
+# 只有当主版本号（第一个数字）发生变化时,插件才会自动覆盖所有配置文件
+# 例如：1.x.x → 2.0.0 会覆盖,但 1.0.0 → 1.1.0 不会覆盖
+# ========================================
+ConfigVersion: '3.0.0'
+
+# ========================================
+# Language Settings
+# 语言设置
+# ========================================
+
+# Available options:
+#   default  - Auto-detect system language (recommended)
+#   zh_cn    - Simplified Chinese
+#   en_us    - English
+# ----------------------------------------
+# 可选值:
+#   default  - 自动检测系统语言（推荐）
+#   zh_cn    - 简体中文
+#   en_us    - English
+Language: default
+
+# ========================================
+# Data Storage Mode
+# 数据存储模式
+# ========================================
+
+# Enable MySQL database storage
+# true  - Use MySQL (better performance for large servers)
+# false - Use YAML files (simpler setup for small servers)
+# ----------------------------------------
+# 是否启用 MySQL 数据库存储
+# true  - 使用 MySQL（大型服务器性能更好）
+# false - 使用 YAML 文件（小型服务器更简单）
+MySQL:
+  # Whether to enable MySQL mode
+  # ----------------------------------------
+  # 是否启用 MySQL 模式
+  Enable: false
+
+  # Database host address
+  # ----------------------------------------
+  # 数据库主机地址
+  Host: localhost
+
+  # Database port (default: 3306)
+  # ----------------------------------------
+  # 数据库端口（默认：3306）
+  Port: 3306
+
+  # Database name
+  # ----------------------------------------
+  # 数据库名称
+  Database: banit
+
+  # Database username
+  # ----------------------------------------
+  # 数据库用户名
+  Username: root
+
+  # Database password
+  # ----------------------------------------
+  # 数据库密码
+  Password: password
+
+  # Additional connection parameters
+  # Default settings enable UTF-8 support and auto-reconnect
+  # ----------------------------------------
+  # 额外连接参数
+  # 默认设置启用 UTF-8 支持和自动重连
+  Parameters: '?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8'
+
+  # Connection pool settings
+  # ----------------------------------------
+  # 连接池设置
+  Pool:
+    # Maximum number of connections in pool
+    # ----------------------------------------
+    # 连接池最大连接数
+    Size: 10
+
+    # Minimum number of idle connections
+    # ----------------------------------------
+    # 最小空闲连接数
+    MinIdle: 2
+
+    # Connection timeout (milliseconds)
+    # ----------------------------------------
+    # 连接超时时间（毫秒）
+    ConnectionTimeout: 30000
+
+    # Idle timeout (milliseconds)
+    # ----------------------------------------
+    # 空闲超时时间（毫秒）
+    IdleTimeout: 600000
+
+    # Maximum connection lifetime (milliseconds)
+    # ----------------------------------------
+    # 连接最大生存时间（毫秒）
+    MaxLifetime: 1800000
+
+# ========================================
+# General Settings
+# 通用设置
+# ========================================
+
+# Global world name (used for server-wide bans)
+# Items banned in this "world" apply to all worlds
+# ----------------------------------------
+# 全局世界名称（用于全服禁用）
+# 在此"世界"中禁用的物品会应用到所有世界
+OverAll: OverAll
+
+# Enable NBT matching (supports custom NBT data)
+# ----------------------------------------
+# 启用 NBT 匹配（支持自定义 NBT 数据）
+CanBeUsedNBT: true
+
+# Check backpack on player login
+# ----------------------------------------
+# 玩家登录时检查背包
+CheckBackPack: true
+
+# Enable periodic backpack checking task
+# ----------------------------------------
+# 启用定期背包检查任务
+CheckBackPackTask: true
+
+# Backpack check interval (seconds)
+# ----------------------------------------
+# 背包检查间隔时间（秒）
+CheckTime: 10
+
+# Enable duplicate ban detection
+# Prevents adding the same ban twice
+# ----------------------------------------
+# 启用重复禁用检测
+# 防止添加相同的禁用配置
+HasFlag: true
+
+# Enable optimization mode
+# Uses probability-based checking to reduce server load
+# ----------------------------------------
+# 启用优化模式
+# 使用概率检查来减少服务器负载
+Optimization: true
+
+# Enable inventory click checking
+# ----------------------------------------
+# 启用物品栏点击检查
+InventoryCheck: true
+
+# Drop banned items instead of deleting
+# ----------------------------------------
+# 扔出被禁用的物品而不是删除
+DropItem: false
+
+# ========================================
+# Block Check Settings
+# 方块检查设置
+# ========================================
+
+BlockCheck:
+  # Enable automatic banned block detection
+  # Warning: May impact performance on large servers
+  # ----------------------------------------
+  # 启用自动被禁用方块检测
+  # 警告：可能影响大型服务器性能
+  Enable: false
+
+  # Chunk cooldown (milliseconds)
+  # Time before the same chunk can be checked again
+  # ----------------------------------------
+  # 区块冷却时间（毫秒）
+  # 同一区块再次检查前的等待时间
+  ChunkCooldown: 30000
+
+  # Check each chunk only once
+  # If true, chunks are never re-checked after first scan
+  # ----------------------------------------
+  # 每个区块只检查一次
+  # 如果为 true,区块首次扫描后不会再检查
+  CheckOncePerChunk: false
+
+  # World minimum height for block checking
+  # ----------------------------------------
+  # 方块检查的世界最小高度
+  WorldMinHeight: 0
+
+  # World maximum height for block checking
+  # ----------------------------------------
+  # 方块检查的世界最大高度
+  WorldMaxHeight: 256
+
+  # Check trigger chance (percentage)
+  # Lower values = better performance, lower detection rate
+  # ----------------------------------------
+  # 检查触发概率（百分比）
+  # 数值越低 = 性能越好,检测率越低
+  CheckChance: 10
+
+  # Always check (ignore probability)
+  # If true, CheckChance is ignored
+  # ----------------------------------------
+  # 总是检查（忽略概率）
+  # 如果为 true,会忽略 CheckChance
+  AlwaysCheck: false
+
+  # Enable debug output
+  # Shows detailed information about block checks
+  # ----------------------------------------
+  # 启用调试输出
+  # 显示方块检查的详细信息
+  Debug: false
+
+# ==================== 命令参数说明 ====================
+#
+# 重要：参数不使用短横线（-），只使用冒号（:）
+#
+# 错误示例：world-world_nether, clear-false, use-right
+# 正确示例：world:world_nether, clear:false, use:right
+#
+# ==================== 物品禁用参数 ====================
+# 命令：/bi add [参数]
+#       /bi adds [参数]
+#       /bi check [参数]
+#
+# 可用参数：
+#
+# world:<世界名>          - 指定世界（不指定则为全局）
+#   示例：world:world_nether
+#
+# clear:<true/false>      - 是否清除物品（默认：true）
+#   true  = 触发时清除物品
+#   false = 触发时仅阻止使用
+#   示例：clear:false
+#
+# use:<模式>              - 使用模式（默认：all）
+#   all   = 所有操作
+#   right = 右键使用
+#   left  = 左键攻击
+#   place = 放置方块
+#   craft = 合成
+#   drop  = 丢弃
+#   main  = 主手持有
+#   off   = 副手持有
+#   helmet     = 仅头盔槽禁止穿戴（穿上即掉落，clear 默认 false）
+#   chestplate = 仅胸甲槽禁止穿戴（穿上即掉落，clear 默认 false）
+#   leggings   = 仅护腿槽禁止穿戴（穿上即掉落，clear 默认 false）
+#   boots      = 仅靴子槽禁止穿戴（穿上即掉落，clear 默认 false）
+#   armor      = 四个护甲槽禁止穿戴（穿上即掉落，clear 默认 false）
+#   equip      = 四个护甲槽+副手禁止穿戴（穿上即掉落，clear 默认 false）
+#   示例：use:right
+#
+# reason:<理由>           - 自定义禁用理由
+#   示例：reason:§c这是作弊物品
+#
+# range:<范围>            - 匹配范围（默：不填）
+#   all     = 忽略数据值（只匹配物品 ID）
+#   exactly = 精确匹配 NBT（完全相同才触发）
+#   不填    = 匹配 ID 和数据值
+#   示例：range:all
+#
+# key:<NBT键>             - NBT 键名（用于单个 NBT 匹配）
+#   示例：key:display.Name
+#
+# value:<NBT值>           - NBT 值（必须与 key 一起使用）
+#   示例：value:§6Excalibur
+#
+# fuzzynbt:<NBT路径>      - 模糊 NBT 匹配（只要存在该键即触发）
+#   示例：fuzzynbt:CustomModelData
+#
+# 完整示例：
+#   /bi add world:world key:display.Name value:§6Excalibur clear:false use:right reason:§c传说武器禁用
+#   /bi adds range:all use:place reason:§c禁止放置该方块
+#
+# ==================== 方块禁用参数 ====================
+# 命令：/bi addblock [参数]
+#
+# 可用参数：
+#
+# world:<世界名>          - 指定世界（不指定则为全局）
+# clear:<true/false>      - 是否清除方块（默认：true）
+# use:<模式>              - 使用模式（默认：all）
+#   all      = 所有操作
+#   interact = 右键交互
+#   break    = 破坏方块
+#   place    = 放置方块
+# reason:<理由>           - 自定义禁用理由
+# range:<范围>            - 匹配范围（同物品）
+#
+# 示例：
+#   /bi addblock use:break reason:§c禁止破坏该方块
+#   /bi addblock world:world_nether clear:true use:interact
+#
+# ==================== 实体禁用参数 ====================
+# 命令：/bi addentity [参数]
+#
+# 可用参数：
+#
+# world:<世界名>          - 指定世界（不指定则为全局）
+# reason:<理由>           - 自定义禁用理由
+# range:<范围>            - 匹配范围
+#   sort = 按类型匹配（所有同类型实体）
+#   name = 按名称匹配（只匹配同名实体）
+#
+# 示例：
+#   /bi addentity range:sort reason:§c禁止生成该实体
+#   /bi addentity range:name world:world reason:§c禁止该名称的实体
+#
+# ==================== 附魔禁用参数 ====================
+# 命令：/bi addench <附魔名> [参数]
+#
+# 可用参数：
+#
+# world:<世界名>          - 指定世界（不指定则为全局）
+# clear:<true/false>      - 是否清除附魔（默认：true）
+# use:<模式>              - 使用模式（默认：all）
+#   all   = 所有操作
+#   right = 右键使用
+#   left  = 左键攻击
+#   drop  = 丢弃
+# reason:<理由>           - 自定义禁用理由
+# level:<等级>            - 等级限制
+#   5     = 精确等级 5
+#   >5    = 大于等级 5
+#   >=5   = 大于等于等级 5
+#   <5    = 小于等级 5
+#   <=5   = 小于等于等级 5
+#
+# 示例：
+#   /bi addench 锋利 level:>5 reason:§c附魔等级过高
+#   /bi addench 保护 level:5 clear:false use:right
+#
+# ==================== 参数组合示例 ====================
+#
+# 禁用特定 NBT 的物品：
+#   /bi add key:display.Name value:§6神器 reason:§c作弊物品
+#
+# 禁用所有同类型物品：
+#   /bi add range:all reason:§c该物品类型被禁用
+#
+# 禁用但不清除：
+#   /bi add clear:false reason:§c仅阻止使用
+#
+# 禁用特定操作：
+#   /bi add use:craft reason:§c禁止合成
+#   /bi addblock use:place reason:§c禁止放置
+#
+# 模糊 NBT 匹配：
+#   /bi add fuzzynbt:AttributeModifiers reason:§c禁止属性修改
+#
+# 多参数组合：
+#   /bi add world:world_the_end key:ench value:[{id:34s,lvl:10s}] clear:true use:all reason:§c下界禁用高级附魔
