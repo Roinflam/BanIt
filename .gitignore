@@ -1,22 +1,39 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
+# 编译输出
+build/
+out/
+target/
+bin/
+classes/
+*.class
+
+# Gradle 本地缓存
+.gradle/
+
+# IDE 配置（.iml 留着，老项目靠它直接打开）
+.idea/
+.vscode/
+.settings/
 .classpath
 .project
-
-# idea
-out
-*.ipr
 *.iws
-*.iml
-.idea
+*.ipr
 
-# gradle
-build
-.gradle
+# 本地测试服
+run/
 
-# other
-eclipse
-run
+# 日志和崩溃记录
+*.log
+logs/
+hs_err_pid*
+
+# 系统生成的文件
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 打包产物和压缩包（gradle wrapper 的 jar 要留着，gradlew 靠它启动）
+*.jar
+*.zip
+*.rar
+*.7z
+!gradle/wrapper/gradle-wrapper.jar
