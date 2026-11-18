@@ -1283,6 +1283,9 @@ public class DataManager {
         if (worldInfo == null) {
             return null;
         }
+        String blockType = null;
+        byte blockData = 0;
+        boolean blockDataRead = false;
         for (String serialNumber : blocks) {
             Map<String, Object> info = worldInfo.get(serialNumber);
             if (info == null || !"Block".equals(info.get("Type"))) {
@@ -1311,18 +1314,24 @@ public class DataManager {
                 }
                 continue;
             }
-            if (distinguish == 0) {
-                if (block.getType().toString().equals(id) && block.getData() == (byte) data) {
-                    return serialNumber;
-                }
-            } else if (distinguish == 1) {
-                if (block.getType().toString().equals(id)) {
-                    return serialNumber;
-                }
-            } else if (distinguish == 2) {
-                if (block.getType().toString().equals(id) && block.getData() == (byte) data) {
-                    return serialNumber;
-                }
+            if (distinguish < 0 || distinguish > 2) {
+                continue;
+            }
+            if (blockType == null) {
+                blockType = block.getType().toString();
+            }
+            if (!blockType.equals(id)) {
+                continue;
+            }
+            if (distinguish == 1) {
+                return serialNumber;
+            }
+            if (!blockDataRead) {
+                blockData = block.getData();
+                blockDataRead = true;
+            }
+            if (blockData == (byte) data) {
+                return serialNumber;
             }
         }
         return null;
