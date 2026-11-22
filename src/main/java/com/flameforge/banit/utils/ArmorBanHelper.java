@@ -5,7 +5,6 @@ import com.flameforge.banit.config.ConfigManager;
 import com.flameforge.banit.config.DataManager;
 import com.flameforge.banit.config.LanguageManager;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import pers.tany.yukinoaapi.interfacepart.item.IItem;
@@ -43,6 +42,9 @@ public final class ArmorBanHelper {
      */
     private ArmorBanHelper() {
     }
+
+    /** 自己的槽位枚举：1.7.10 没有 EquipmentSlot，对它 switch 会让整个类加载失败。 */
+    public enum Slot { HEAD, CHEST, LEGS, FEET, OFF_HAND }
 
     /**
      * 判断给定模式是否属于“装备类”模式（本系统会处理的全部模式）。
@@ -101,7 +103,7 @@ public final class ArmorBanHelper {
      * @param slot 装备槽位
      * @return 如果该模式作用于该槽位返回 true
      */
-    public static boolean modeAppliesToSlot(String mode, EquipmentSlot slot) {
+    public static boolean modeAppliesToSlot(String mode, Slot slot) {
         if (mode == null || slot == null) {
             return false;
         }
@@ -155,14 +157,14 @@ public final class ArmorBanHelper {
         boolean changed = false;
 
         // 头盔、胸甲、护腿、靴子
-        changed |= checkAndHandleSlot(player, inventory, EquipmentSlot.HEAD, worldName, overAll);
-        changed |= checkAndHandleSlot(player, inventory, EquipmentSlot.CHEST, worldName, overAll);
-        changed |= checkAndHandleSlot(player, inventory, EquipmentSlot.LEGS, worldName, overAll);
-        changed |= checkAndHandleSlot(player, inventory, EquipmentSlot.FEET, worldName, overAll);
+        changed |= checkAndHandleSlot(player, inventory, Slot.HEAD, worldName, overAll);
+        changed |= checkAndHandleSlot(player, inventory, Slot.CHEST, worldName, overAll);
+        changed |= checkAndHandleSlot(player, inventory, Slot.LEGS, worldName, overAll);
+        changed |= checkAndHandleSlot(player, inventory, Slot.FEET, worldName, overAll);
 
         // 副手（低版本无副手，跳过）
         if (!Version.getType().isLOW()) {
-            changed |= checkAndHandleSlot(player, inventory, EquipmentSlot.OFF_HAND, worldName, overAll);
+            changed |= checkAndHandleSlot(player, inventory, Slot.OFF_HAND, worldName, overAll);
         }
 
         // 有改动时刷新玩家背包视图，确保客户端立即同步
@@ -181,7 +183,7 @@ public final class ArmorBanHelper {
      * @param overAll   全局世界名
      * @return 如果对该槽位执行了移除操作返回 true，否则返回 false
      */
-    private static boolean checkAndHandleSlot(Player player, PlayerInventory inventory, EquipmentSlot slot,
+    private static boolean checkAndHandleSlot(Player player, PlayerInventory inventory, Slot slot,
                                               String worldName, String overAll) {
         ItemStack item = getSlotItem(inventory, slot);
         if (IItem.isEmpty(item)) {
@@ -218,7 +220,7 @@ public final class ArmorBanHelper {
             } else {
                 // clear=false：掉落到地面，实现“穿上即掉落”的效果
                 player.getWorld().dropItemNaturally(player.getLocation(), dropClone);
-                if (slot == EquipmentSlot.OFF_HAND) {
+                if (slot == Slot.OFF_HAND) {
                     player.sendMessage(languageManager.getMessageBracket("message.item-no-off", "reason", reason));
                 } else {
                     player.sendMessage(languageManager.getMessageBracket("message.item-no-wear", "reason", reason));
@@ -277,7 +279,7 @@ public final class ArmorBanHelper {
      * @param slot      装备槽位
      * @return 槽位物品，未知槽位返回 null
      */
-    private static ItemStack getSlotItem(PlayerInventory inventory, EquipmentSlot slot) {
+    private static ItemStack getSlotItem(PlayerInventory inventory, Slot slot) {
         switch (slot) {
             case HEAD:
                 return inventory.getHelmet();
@@ -301,7 +303,7 @@ public final class ArmorBanHelper {
      * @param slot      装备槽位
      * @param item      要设置的物品（null 表示清空）
      */
-    private static void setSlotItem(PlayerInventory inventory, EquipmentSlot slot, ItemStack item) {
+    private static void setSlotItem(PlayerInventory inventory, Slot slot, ItemStack item) {
         switch (slot) {
             case HEAD:
                 inventory.setHelmet(item);

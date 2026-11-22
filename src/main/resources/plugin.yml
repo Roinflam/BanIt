@@ -5,6 +5,7 @@ api-version: 1.13
 author: Roinflam
 description: 一个强大的物品/方块/实体/附魔禁用插件
 website: https://github.com/Roinflam/BanIt
+depend: [ NBTAPI ]
 softdepend: [ YukiNoaAPI ]
 commands:
   banit:

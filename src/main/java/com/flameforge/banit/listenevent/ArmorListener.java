@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockDispenseArmorEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -23,7 +22,7 @@ import pers.tany.yukinoaapi.interfacepart.item.IItem;
  *   <li>{@link InventoryClickEvent} —— 在背包界面把护甲/副手物品点击、Shift 移动、数字键交换到装备槽</li>
  *   <li>{@link InventoryDragEvent}  —— 拖动物品到装备槽</li>
  *   <li>{@link PlayerInteractEvent} —— 右键手持护甲直接穿戴</li>
- *   <li>{@link BlockDispenseArmorEvent} —— 发射器为玩家装备护甲</li>
+ *   <li>发射器为玩家装备护甲 —— 见 {@link ArmorDispenseListener}（1.13+）</li>
  * </ul>
  *
  * <p>处理策略：除发射器事件可直接取消外，其余事件统一延后 1 tick 重新读取玩家真实装备槽状态后再处置。
@@ -111,25 +110,6 @@ public class ArmorListener implements Listener {
             return;
         }
         scheduleEnforce(player);
-    }
-
-    /**
-     * 发射器装备护甲事件：发射器为玩家装备被禁用护甲时直接取消
-     *
-     * @param evt 发射器装备护甲事件
-     */
-    @EventHandler(ignoreCancelled = true)
-    public void onBlockDispenseArmor(BlockDispenseArmorEvent evt) {
-        if (!dataManager.hasEquipBan()) {
-            return;
-        }
-        if (!(evt.getTargetEntity() instanceof Player)) {
-            return;
-        }
-        Player player = (Player) evt.getTargetEntity();
-        if (ArmorBanHelper.shouldBlockArmorDispense(player, evt.getItem())) {
-            evt.setCancelled(true);
-        }
     }
 
     /**

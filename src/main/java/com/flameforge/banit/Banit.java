@@ -4,6 +4,7 @@ import com.flameforge.banit.bstats.Metrics;
 import com.flameforge.banit.command.BanItTabCompleter;
 import com.flameforge.banit.command.Commands;
 import com.flameforge.banit.config.DataManager;
+import com.flameforge.banit.listenevent.ArmorDispenseListener;
 import com.flameforge.banit.listenevent.ArmorListener;
 import com.flameforge.banit.listenevent.Events;
 import com.flameforge.banit.storage.DataStorage;
@@ -91,6 +92,9 @@ public class Banit extends JavaPlugin {
         IRegister.registerEvents(this, new Events());
         // 注册装备槽禁用监听器（实现“穿上即掉落”的即时拦截）
         IRegister.registerEvents(this, new ArmorListener());
+        if (ArmorDispenseListener.isSupported()) {
+            IRegister.registerEvents(this, new ArmorDispenseListener());
+        }
         IRegister.registerCommands(this, "BanIt", new Commands(this));
         getCommand("BanIt").setTabCompleter(new BanItTabCompleter());
 

@@ -135,6 +135,22 @@ public class DataManager {
      */
     private static final boolean ITEM_INDEX_ENABLED = true;
 
+    // 1.13 之前没有旧版材质这回事，也没有 isLegacy()
+    private static final boolean HAS_LEGACY_MATERIAL = hasIsLegacy();
+
+    private static boolean hasIsLegacy() {
+        try {
+            Material.class.getMethod("isLegacy");
+            return true;
+        } catch (NoSuchMethodException e) {
+            return false;
+        }
+    }
+
+    private static boolean isLegacyMaterial(Material material) {
+        return HAS_LEGACY_MATERIAL && material.isLegacy();
+    }
+
     /** 匹配方式：distinguish==0，材质相同且耐久相同 */
     private static final int MATCH_TYPE_AND_DATA = 0;
 
@@ -661,7 +677,7 @@ public class DataManager {
 
         // 旧版材质（LEGACY_*）的物品，isSimilar 会先把材质换算成新版再比较，
         // 「条目材质 == 物品材质」不再成立，按材质分桶会漏，这种物品走逐条扫描
-        if (ITEM_INDEX_ENABLED && !itemMaterial.isLegacy()) {
+        if (ITEM_INDEX_ENABLED && !isLegacyMaterial(itemMaterial)) {
             ItemBanIndex index = getItemBanIndex(world);
             if (index.usable) {
                 return matchIndexed(index, player, checkPermission, itemStack, itemType, itemDurability);
@@ -927,7 +943,7 @@ public class DataManager {
                         } catch (RuntimeException | LinkageError ignored) {
                             // 留到匹配时再反序列化，异常在那边按原逻辑处理（缺 ProtocolLib 之类的 LinkageError 也一样）
                         }
-                        if (storedItem != null && !storedItem.getType().isLegacy()) {
+                        if (storedItem != null && !isLegacyMaterial(storedItem.getType())) {
                             // isSimilar 要求两边材质相同（新版材质不做换算），按存储物品的材质分桶
                             byType.computeIfAbsent(storedItem.getType().toString(), k -> new ArrayList<>())
                                     .add(new ItemBanEntry(position, serialNumber, MATCH_SIMILAR,
