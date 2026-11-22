@@ -355,7 +355,8 @@ public class Commands implements CommandExecutor {
                     NBTList<NBTListCompound> enchList = nbtItem.getCompoundList("ench");
                     enchList.addAll(storedEnchantmentsList);
                     nbtItem.removeKey("StoredEnchantments");
-                    nbtItem.applyNBT(itemStack);
+                    // 1.7.10 的 NBT-API 没有 applyNBT 要用的 merge，直接取改好的副本
+                    itemStack = nbtItem.getItem();
                 }
             } catch (Exception e) {
                 player.sendMessage(languageManager.getMessage("enchantment.nbtapi-error"));
