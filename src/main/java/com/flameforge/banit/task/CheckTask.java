@@ -19,29 +19,14 @@ import pers.tany.yukinoaapi.interfacepart.item.IItem;
  * 背包检查任务
  * 定期检查玩家背包中的物品是否被禁用
  *
- * 性能优化：
- * 1. 移除末尾重复调度（runTaskTimer 已是重复任务，run() 末尾又 new CheckTask() 会导致任务无限叠加）
- * 2. 修复遍历范围 inventory.getSize() * 2 → inventory.getSize()（原来会访问越界索引，白白浪费循环）
- * 3. 移除冗余的世界数组循环（BanInfo.isBannedItemStack 内部已经同时检查当前世界和 OverAll 世界）
- * 4. 改用 DataManager（缓存层）读取 clear/reason，避免穿透到底层存储
+ * 线程分工：
+ * - 主线程只逐槽位 clone 出物品快照，不做匹配；
+ * - 禁用匹配（NBT 比较、模糊 NBT 字符串匹配）在异步线程跑，只读快照。Bukkit 的 Inventory / ItemStack
+ *   不是线程安全的，异步线程不能碰实时背包。背包物品越多（如 Sophisticated Backpacks 这类带大量子物品的背包）越划算；
+ * - 命中后移除物品（deductItem）和发消息切回主线程，执行前再确认玩家还在线。
  *
- * 性能优化（异步化改造，2024 补充）：
- * 5. 本任务由 runTaskTimer 调度，run() 本体仍运行在主线程；但主线程内现在只做“克隆物品快照”
- *    这一步开销很低的操作（逐槽位 clone，不做任何禁用匹配运算）。
- * 6. 真正耗时的禁用匹配运算（isBannedItemStack 内部的 NBT 比较、fuzzyNBT 字符串匹配等纯内存
- *    计算）被转移到异步线程执行，不再阻塞主线程 tick。在线人数越多、背包物品越多（尤其是
- *    Sophisticated Backpacks 这类带海量子物品/NBT 的背包），收益越明显。
- * 7. 异步线程只读取克隆出来的 ItemStack 快照，与主线程实时的 Inventory/ItemStack 完全隔离，
- *    不存在并发读写同一 Bukkit 对象的线程安全问题（Bukkit 的 Inventory/ItemStack 本身不是
- *    线程安全的，绝不能让异步线程直接读取仍在被主线程使用的实时背包对象）。
- * 8. 命中禁用后，实际的物品移除（deductItem）与消息发送仍统一切回主线程执行；执行前会重新
- *    校验玩家是否仍在线，避免异步等待期间玩家已下线导致的异常。
- *
- * 性能优化（2026-09-09）：
- * 9. 改用 BanInfo.matchBannedItemStack，一次匹配同时拿到「序列号 + 匹配到的世界」，
- *    并删除 findMatchedWorld。原实现只能拿到序列号，需要再跑一遍 dataManager.isBannedItemStack
- *    去反推世界，导致一次命中要执行三遍完整匹配（当前世界 + OverAll + 反推那一遍）。
- *    匹配规则与结果完全不变，只是不再重复计算。
+ * BanInfo.matchBannedItemStack 一次就拿到序列号和匹配到的世界（当前世界或 OverAll），不用再反推一遍。
+ * run() 末尾不要再 new 一个 CheckTask：runTaskTimer 本身就是重复任务，再调度会无限叠加。
  *
  * @author Tany天炎
  */

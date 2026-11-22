@@ -91,7 +91,7 @@ public class LanguageManager {
 
         this.langConfig = targetLangConfig;
 
-        // 缺的键先回退到 jar 里同一种语言的文件，再回退到英文。插件更新后，服里早先释放出来的语言文件没有新加的键，
+        // 缺的键先回退到 jar 里同一种语言的文件，再回退到英文。插件更新后，插件目录里早先释放出来的语言文件没有新加的键，
         // 主版本号不变时也不会覆盖它；只回退英文的话，中文服的新提示会变成英文
         try {
             FileConfiguration fallback = loadBundledLanguage(DEFAULT_LANGUAGE);
