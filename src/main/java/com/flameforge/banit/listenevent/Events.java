@@ -142,7 +142,8 @@ public class Events implements Listener {
                                 boolean clear = dataManager.isBannedItemClear(worldName, serialNumber);
                                 String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                                if (clear) {
+                                // 只有 use:all 的条目在持有时就删，其他模式只在对应操作时删
+                                if (clear && "a".equals(dataManager.getBannedItemMode(worldName, serialNumber))) {
                                     IInventoryItem.deductItem(inventory, itemStack);
                                     player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
                                 }
@@ -180,7 +181,7 @@ public class Events implements Listener {
                     boolean clear = (boolean) enchInfo.get("Clear");
                     String reason = (String) enchInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && "a".equals(enchInfo.get("Mode"))) {
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
                     }
@@ -191,9 +192,10 @@ public class Events implements Listener {
                 serialNumber = dataManager.isBannedItemStack(player, worldName, itemStack);
                 if (serialNumber != null) {
                     boolean clear = dataManager.isBannedItemClear(worldName, serialNumber);
+                    String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("m"))) {
                         inventory.setItem(evt.getNewSlot(), null);
                         player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
                     }
@@ -262,7 +264,7 @@ public class Events implements Listener {
                     boolean clear = dataManager.isBannedItemClear(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && "a".equals(dataManager.getBannedItemMode(worldName, serialNumber))) {
                         evt.setCancelled(true);
                         // 点的是玩家自己的背包时，顺带从背包里扣掉这件
                         if (isPlayerInventory) {
@@ -300,7 +302,7 @@ public class Events implements Listener {
                     boolean clear = (boolean) enchInfo.get("Clear");
                     String reason = (String) enchInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && "a".equals(enchInfo.get("Mode"))) {
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
                     }
@@ -313,7 +315,7 @@ public class Events implements Listener {
                     boolean clear = dataManager.isBannedItemClear(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && "a".equals(dataManager.getBannedItemMode(worldName, serialNumber))) {
                         evt.setCancelled(true);
                         evt.getItem().remove();
                         player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
@@ -353,7 +355,7 @@ public class Events implements Listener {
                     String mode = (String) enchInfo.get("Mode");
                     String reason = (String) enchInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("d"))) {
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
                     } else if (mode.equals("d")) {
@@ -370,7 +372,7 @@ public class Events implements Listener {
                     String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("d"))) {
                         evt.getItemDrop().remove();
                         player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
                     } else if (mode.equals("d")) {
@@ -409,7 +411,7 @@ public class Events implements Listener {
                     String mode = (String) blockInfo.get("Mode");
                     String reason = (String) blockInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("i"))) {
                         evt.setCancelled(true);
                         block.setType(Material.AIR);
                         player.sendMessage(languageManager.getMessageBracket("message.block-clear", "reason", reason));
@@ -437,7 +439,7 @@ public class Events implements Listener {
                     String mode = (String) enchInfo.get("Mode");
                     String reason = (String) enchInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && interactHits(mode, evt.getAction(), player.isSneaking())) {
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
                     } else if (mode.equals("a")) {
@@ -471,7 +473,7 @@ public class Events implements Listener {
                     String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && interactHits(mode, evt.getAction(), player.isSneaking())) {
                         evt.setCancelled(true);
                         itemStack.setAmount(0);
                         player.setItemInHand(null);
@@ -532,7 +534,7 @@ public class Events implements Listener {
                     String mode = (String) enchInfo.get("Mode");
                     String reason = (String) enchInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && mode.equals("a")) {
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
                     } else if (mode.equals("a")) {
@@ -550,7 +552,7 @@ public class Events implements Listener {
                     String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && mode.equals("a")) {
                         evt.setCancelled(true);
                         player.setItemInHand(null);
                         player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
@@ -589,7 +591,7 @@ public class Events implements Listener {
                 String mode = (String) blockInfo.get("Mode");
                 String reason = (String) blockInfo.get("Reason");
 
-                if (clear) {
+                if (clear && (mode.equals("a") || mode.equals("p"))) {
                     evt.setCancelled(true);
                     block.setType(Material.AIR);
                     player.sendMessage(languageManager.getMessageBracket("message.block-clear", "reason", reason));
@@ -616,7 +618,7 @@ public class Events implements Listener {
                     String mode = (String) enchInfo.get("Mode");
                     String reason = (String) enchInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("r") || (mode.equals("sr") && player.isSneaking()))) {
                         evt.setCancelled(true);
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
@@ -634,7 +636,7 @@ public class Events implements Listener {
                     String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("p"))) {
                         evt.setCancelled(true);
                         player.setItemInHand(null);
                         player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
@@ -659,10 +661,6 @@ public class Events implements Listener {
      */
     @EventHandler
     public void onBlockBreak(BlockBreakEvent evt) {
-        if (configManager.isOptimization() && !IRandom.percentageChance(2.5)) {
-            return;
-        }
-
         Player player = evt.getPlayer();
         World world = player.getWorld();
         ItemStack itemStack = player.getItemInHand();
@@ -679,7 +677,7 @@ public class Events implements Listener {
                 String mode = (String) blockInfo.get("Mode");
                 String reason = (String) blockInfo.get("Reason");
 
-                if (clear) {
+                if (clear && (mode.equals("a") || mode.equals("b"))) {
                     evt.setCancelled(true);
                     block.setType(Material.AIR);
                     player.sendMessage(languageManager.getMessageBracket("message.block-clear", "reason", reason));
@@ -706,7 +704,7 @@ public class Events implements Listener {
                     String mode = (String) enchInfo.get("Mode");
                     String reason = (String) enchInfo.get("Reason");
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking()))) {
                         evt.setCancelled(true);
                         itemStack.removeEnchantment(ench);
                         player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
@@ -724,7 +722,7 @@ public class Events implements Listener {
                     String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking()))) {
                         evt.setCancelled(true);
                         player.setItemInHand(null);
                         player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
@@ -746,10 +744,6 @@ public class Events implements Listener {
      */
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent evt) {
-        if (configManager.isOptimization() && !IRandom.percentageChance(2.5)) {
-            return;
-        }
-
         // 检查被攻击的实体
         if (evt.getEntity() instanceof LivingEntity && !(evt.getEntity() instanceof Player)) {
             LivingEntity livingEntity = (LivingEntity) evt.getEntity();
@@ -819,7 +813,7 @@ public class Events implements Listener {
                             String mode = (String) enchInfo.get("Mode");
                             String reason = (String) enchInfo.get("Reason");
 
-                            if (clear) {
+                            if (clear && mode.equals("a")) {
                                 itemStack.removeEnchantment(ench);
                                 player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
                             } else if (mode.equals("a")) {
@@ -837,7 +831,7 @@ public class Events implements Listener {
                             String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                             String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                            if (clear) {
+                            if (clear && mode.equals("a")) {
                                 evt.setCancelled(true);
                                 IInventoryItem.deductItem(player.getInventory(), itemStack);
                                 player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
@@ -872,7 +866,7 @@ public class Events implements Listener {
                         String mode = (String) enchInfo.get("Mode");
                         String reason = (String) enchInfo.get("Reason");
 
-                        if (clear) {
+                        if (clear && (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking()))) {
                             evt.setCancelled(true);
                             itemStack.removeEnchantment(ench);
                             player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
@@ -890,7 +884,7 @@ public class Events implements Listener {
                         String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                         String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                        if (clear) {
+                        if (clear && mode.equals("a")) {
                             evt.setCancelled(true);
                             player.setItemInHand(null);
                             handleCantUse(player, itemStack);
@@ -927,7 +921,7 @@ public class Events implements Listener {
                             String mode = (String) enchInfo.get("Mode");
                             String reason = (String) enchInfo.get("Reason");
 
-                            if (clear) {
+                            if (clear && (mode.equals("a") || mode.equals("r"))) {
                                 evt.setCancelled(true);
                                 itemStack.removeEnchantment(ench);
                                 player.sendMessage(languageManager.getMessageBracket("message.ench-clear", "reason", reason));
@@ -946,7 +940,7 @@ public class Events implements Listener {
                             String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                             String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                            if (clear) {
+                            if (clear && mode.equals("a")) {
                                 evt.setCancelled(true);
                                 player.setItemInHand(null);
                                 handleCantUse(player, itemStack);
@@ -992,7 +986,7 @@ public class Events implements Listener {
                     String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                     String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                    if (clear) {
+                    if (clear && (mode.equals("a") || mode.equals("c"))) {
                         evt.setCancelled(true);
                         IInventoryItem.deductItem(craftingInventory, itemStack);
                         player.sendMessage(languageManager.getMessageBracket("message.item-no-craft", "reason", reason));
@@ -1166,7 +1160,7 @@ public class Events implements Listener {
                                     if (blockInfo != null) {
                                         boolean clear = (boolean) blockInfo.get("Clear");
 
-                                        if (clear) {
+                                        if (clear && "a".equals(blockInfo.get("Mode"))) {
                                             foundCount++;
                                             final Block finalBlock = block;
 
@@ -1215,6 +1209,16 @@ public class Events implements Listener {
      * @param player    玩家
      * @param itemStack 物品
      */
+    private static boolean interactHits(String mode, Action action, boolean sneaking) {
+        boolean right = action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK;
+        boolean left = action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK;
+        return mode.equals("a")
+                || mode.equals("r") && right
+                || mode.equals("l") && left
+                || mode.equals("sr") && sneaking && right
+                || mode.equals("sl") && sneaking && left;
+    }
+
     private void handleCantUse(Player player, ItemStack itemStack) {
         if (configManager.isDropItem()) {
             BanInfo.cantUse(player, itemStack);

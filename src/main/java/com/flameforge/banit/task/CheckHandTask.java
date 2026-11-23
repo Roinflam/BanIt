@@ -122,7 +122,7 @@ public class CheckHandTask extends BukkitRunnable {
                 // 从 dataManager 缓存读取原因，不穿透到底层存储
                 String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                if (clear) {
+                if (clear && (mode.equals("a") || mode.equals(handType))) {
                     if (handType.equals("m")) {
                         current.setItemInHand(null);
                     } else {

@@ -146,10 +146,12 @@ CheckTime: 10
 HasFlag: true
 
 # Enable optimization mode
-# Uses probability-based checking to reduce server load
+# Item drops and right-clicking entities are checked about 10% of the time,
+# and BlockCheck uses CheckChance. Block breaking and entity damage are always checked.
 # ----------------------------------------
 # 启用优化模式
-# 使用概率检查来减少服务器负载
+# 开启后丢弃物品、右键实体只按约 10% 的概率检查，区块方块检查按 BlockCheck 的 CheckChance 抽查；
+# 破坏方块、攻击与受击不抽查，每次都检查
 Optimization: true
 
 # Enable inventory click checking
@@ -238,7 +240,8 @@ BlockCheck:
 #   示例：world:world_nether
 #
 # clear:<true/false>      - 是否清除物品（默认：true）
-#   true  = 触发时清除物品
+#   true  = 在 use 指定的操作发生时清除物品；use:all 时持有即清除
+#           （登录检查、定期背包检查、背包点击、拾取、切换手持时都会清除）
 #   false = 触发时仅阻止使用
 #   示例：clear:false
 #
@@ -290,6 +293,8 @@ BlockCheck:
 #
 # world:<世界名>          - 指定世界（不指定则为全局）
 # clear:<true/false>      - 是否清除方块（默认：true）
+#                           true 时在 use 指定的操作发生时把方块清为空气；
+#                           只有 use:all 的方块会被 BlockCheck 区块检查清除
 # use:<模式>              - 使用模式（默认：all）
 #   all      = 所有操作
 #   interact = 右键交互
@@ -324,6 +329,7 @@ BlockCheck:
 #
 # world:<世界名>          - 指定世界（不指定则为全局）
 # clear:<true/false>      - 是否清除附魔（默认：true）
+#                           true 时在 use 指定的操作发生时删除物品上的该附魔
 # use:<模式>              - 使用模式（默认：all）
 #   all   = 所有操作
 #   right = 右键使用

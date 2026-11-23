@@ -103,7 +103,7 @@ public class CheckTask extends BukkitRunnable {
                             String matchedWorld = match.getWorld();
                             boolean clear = dataManager.isBannedItemClear(matchedWorld, serialNumber);
 
-                            if (clear) {
+                            if (clear && "a".equals(dataManager.getBannedItemMode(matchedWorld, serialNumber))) {
                                 final String finalMatchedWorld = matchedWorld;
                                 final ItemStack finalItemStack = itemStack;
                                 // 物品移除属于状态变更操作，必须切回主线程执行
