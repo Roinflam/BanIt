@@ -266,7 +266,7 @@ public class ListInterface implements InventoryHolder, Listener {
                             break;
                     }
 
-                    if (player.isOp()) {
+                    if (player.isOp() || player.hasPermission("bi.op")) {
                         lore.add("");
                         lore.add("");
                         lore.add(languageManager.getMessage("gui.click-to-remove"));
@@ -591,7 +591,7 @@ public class ListInterface implements InventoryHolder, Listener {
             }
         }
 
-        if (player.isOp()) {
+        if (player.isOp() || player.hasPermission("bi.op")) {
             String serialNumber = SLOT_ITEM.get(evt.getRawSlot());
             if (serialNumber != null) {
                 Map<String, Object> info = dataManager.getAllBannedInfo(worldName).get(serialNumber);

@@ -156,7 +156,7 @@ public class Commands implements CommandExecutor {
         }
 
         // ==================== 帮助信息 ====================
-        if (player.isOp()) {
+        if (isAdmin(player)) {
             List<String> helpMessages = languageManager.getMessageList("command.help");
             for (String message : helpMessages) {
                 player.sendMessage(message);
@@ -168,13 +168,17 @@ public class Commands implements CommandExecutor {
         return true;
     }
 
+    private static boolean isAdmin(CommandSender sender) {
+        return sender.isOp() || sender.hasPermission("bi.op");
+    }
+
     // ==================== 命令处理方法 ====================
 
     /**
      * 处理 reload 命令
      */
     private boolean handleReload(CommandSender sender) {
-        if (!sender.isOp()) {
+        if (!isAdmin(sender)) {
             sender.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -233,7 +237,7 @@ public class Commands implements CommandExecutor {
      * 处理 migrateToMySQL 命令
      */
     private boolean handleMigrateToMySQL(CommandSender sender) {
-        if (!sender.isOp()) {
+        if (!isAdmin(sender)) {
             sender.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -252,7 +256,7 @@ public class Commands implements CommandExecutor {
      * 处理清除所有命令
      */
     private boolean handleClearAll(CommandSender sender) {
-        if (!sender.isOp()) {
+        if (!isAdmin(sender)) {
             sender.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -280,7 +284,7 @@ public class Commands implements CommandExecutor {
      * 处理清除世界命令
      */
     private boolean handleClearWorld(CommandSender sender, String worldName) {
-        if (!sender.isOp()) {
+        if (!isAdmin(sender)) {
             sender.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -302,7 +306,7 @@ public class Commands implements CommandExecutor {
      * 处理 nbt 命令
      */
     private boolean handleNbt(Player player) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -334,7 +338,7 @@ public class Commands implements CommandExecutor {
      * 处理 ench 命令
      */
     private boolean handleEnch(Player player) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -421,7 +425,7 @@ public class Commands implements CommandExecutor {
      * 处理 set 命令
      */
     private boolean handleSet(Player player, String worldName) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -449,7 +453,7 @@ public class Commands implements CommandExecutor {
      * 处理 check 命令
      */
     private boolean handleCheck(Player player, String[] args) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -488,7 +492,7 @@ public class Commands implements CommandExecutor {
      * 处理 add 命令
      */
     private boolean handleAdd(Player player, String[] args) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -614,7 +618,7 @@ public class Commands implements CommandExecutor {
      * 处理 adds 命令
      */
     private boolean handleAdds(Player player, String[] args) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -628,7 +632,7 @@ public class Commands implements CommandExecutor {
      * 处理 addblock 命令
      */
     private boolean handleAddBlock(Player player, String[] args) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -743,7 +747,7 @@ public class Commands implements CommandExecutor {
      * 处理 addentity 命令
      */
     private boolean handleAddEntity(Player player, String[] args) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -844,7 +848,7 @@ public class Commands implements CommandExecutor {
      * 处理 addench 命令
      */
     private boolean handleAddEnch(Player player, String[] args) {
-        if (!player.isOp()) {
+        if (!isAdmin(player)) {
             player.sendMessage(languageManager.getMessage("error.no-permission"));
             return true;
         }
@@ -906,6 +910,8 @@ public class Commands implements CommandExecutor {
                 reason = r.replace("reason:", "");
                 break;
             }
+        }
+        for (String r : flag) {
             if (r.startsWith("level:")) {
                 level = r.replace("level:", "");
                 break;

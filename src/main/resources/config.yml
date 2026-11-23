@@ -271,7 +271,7 @@ BlockCheck:
 #   示例：range:all
 #
 # key:<NBT键>             - NBT 键名（用于单个 NBT 匹配）
-#   示例：key:display.Name
+#   示例：key:display/Name（多层路径用 / 分隔）
 #
 # value:<NBT值>           - NBT 值（必须与 key 一起使用）
 #   示例：value:§6Excalibur
@@ -280,7 +280,7 @@ BlockCheck:
 #   示例：fuzzynbt:CustomModelData
 #
 # 完整示例：
-#   /bi add world:world key:display.Name value:§6Excalibur clear:false use:right reason:§c传说武器禁用
+#   /bi add world:world key:display/Name value:§6Excalibur clear:false use:right reason:§c传说武器禁用
 #   /bi adds range:all use:place reason:§c禁止放置该方块
 #
 # ==================== 方块禁用参数 ====================
@@ -346,7 +346,7 @@ BlockCheck:
 # ==================== 参数组合示例 ====================
 #
 # 禁用特定 NBT 的物品：
-#   /bi add key:display.Name value:§6神器 reason:§c作弊物品
+#   /bi add key:display/Name value:§6神器 reason:§c作弊物品
 #
 # 禁用所有同类型物品：
 #   /bi add range:all reason:§c该物品类型被禁用
