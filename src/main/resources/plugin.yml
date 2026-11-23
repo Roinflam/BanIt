@@ -3,10 +3,9 @@ version: '3.0.0'
 main: com.flameforge.banit.Banit
 api-version: 1.13
 author: Roinflam
-description: 一个强大的物品/方块/实体/附魔禁用插件
+description: 物品、方块、实体与附魔禁用插件
 website: https://github.com/Roinflam/BanIt
-depend: [ NBTAPI ]
-softdepend: [ YukiNoaAPI ]
+depend: [ NBTAPI, YukiNoaAPI ]
 commands:
   banit:
     description: BanIt 主命令
