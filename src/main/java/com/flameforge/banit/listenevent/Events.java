@@ -889,7 +889,7 @@ public class Events implements Listener {
                             player.setItemInHand(null);
                             handleCantUse(player, itemStack);
                             player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
-                        } else if (mode.equals("a")) {
+                        } else if (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking())) {
                             evt.setCancelled(true);
                             handleCantUse(player, itemStack);
                             player.sendMessage(languageManager.getMessageBracket("message.item-no-all", "reason", reason));
@@ -945,7 +945,7 @@ public class Events implements Listener {
                                 player.setItemInHand(null);
                                 handleCantUse(player, itemStack);
                                 player.sendMessage(languageManager.getMessageBracket("message.item-clear", "reason", reason));
-                            } else if (mode.equals("a")) {
+                            } else if (mode.equals("a") || mode.equals("r")) {
                                 evt.setCancelled(true);
                                 handleCantUse(player, itemStack);
                                 player.sendMessage(languageManager.getMessageBracket("message.item-no-all", "reason", reason));
