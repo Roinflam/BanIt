@@ -884,7 +884,7 @@ public class Events implements Listener {
                         String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                         String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                        if (clear && mode.equals("a")) {
+                        if (clear && (mode.equals("a") || mode.equals("l") || (mode.equals("sl") && player.isSneaking()))) {
                             evt.setCancelled(true);
                             player.setItemInHand(null);
                             handleCantUse(player, itemStack);
@@ -940,7 +940,7 @@ public class Events implements Listener {
                             String mode = dataManager.getBannedItemMode(worldName, serialNumber);
                             String reason = dataManager.getBannedItemReason(worldName, serialNumber);
 
-                            if (clear && mode.equals("a")) {
+                            if (clear && (mode.equals("a") || mode.equals("r"))) {
                                 evt.setCancelled(true);
                                 player.setItemInHand(null);
                                 handleCantUse(player, itemStack);
