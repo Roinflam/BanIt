@@ -146,12 +146,12 @@ CheckTime: 10
 HasFlag: true
 
 # Enable optimization mode
-# Item drops and right-clicking entities are checked about 10% of the time,
-# and BlockCheck uses CheckChance. Block breaking and entity damage are always checked.
+# Only affects BlockCheck: chunk block checks are sampled by CheckChance.
+# Item drops, right-clicking entities, block breaking and entity damage are always checked.
 # ----------------------------------------
 # 启用优化模式
-# 开启后丢弃物品、右键实体只按约 10% 的概率检查，区块方块检查按 BlockCheck 的 CheckChance 抽查；
-# 破坏方块、攻击与受击不抽查，每次都检查
+# 只影响区块方块检查：开启后按 BlockCheck 的 CheckChance 抽查；
+# 丢弃物品、右键实体、破坏方块、攻击与受击不抽查，每次都检查
 Optimization: true
 
 # Enable inventory click checking

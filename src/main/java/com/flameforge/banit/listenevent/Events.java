@@ -334,10 +334,6 @@ public class Events implements Listener {
      */
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent evt) {
-        if (configManager.isOptimization() && !IRandom.percentageChance(10)) {
-            return;
-        }
-
         Player player = evt.getPlayer();
         World world = player.getWorld();
         ItemStack itemStack = evt.getItemDrop().getItemStack();
@@ -513,10 +509,6 @@ public class Events implements Listener {
      */
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent evt) {
-        if (configManager.isOptimization() && !IRandom.percentageChance(10)) {
-            return;
-        }
-
         Player player = evt.getPlayer();
         World world = player.getWorld();
         ItemStack itemStack = player.getItemInHand();
