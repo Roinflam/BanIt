@@ -1,6 +1,6 @@
 package com.flameforge.banit;
 
-import com.flameforge.banit.bstats.Metrics;
+import org.bstats.bukkit.Metrics;
 import com.flameforge.banit.command.BanItTabCompleter;
 import com.flameforge.banit.command.Commands;
 import com.flameforge.banit.config.DataManager;

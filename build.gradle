@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.gradleup.shadow' version '8.3.9'
 }
 
 // ========================================
@@ -154,4 +155,39 @@ tasks.register('javadocJar', Jar) {
 
 artifacts {
     archives javadocJar
+}
+
+// bStats 用 Maven 依赖，Shadow 改包名后打进主 jar；原 jar 任务的产物带 -plain 后缀，只当中间件
+configurations {
+    shade {
+        canBeConsumed = false
+    }
+    compileOnly.extendsFrom shade
+}
+
+dependencies {
+    shade 'org.bstats:bstats-bukkit:3.1.0'
+}
+
+jar {
+    archiveClassifier.set('plain')
+    finalizedBy shadowJar
+}
+
+shadowJar {
+    dependsOn jar
+    archiveBaseName.set(jar.archiveBaseName)
+    archiveVersion.set(jar.archiveVersion)
+    archiveClassifier.set('')
+    destinationDirectory.set(jar.destinationDirectory)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    configurations = [project.configurations.shade]
+    from(zipTree(jar.archiveFile))
+    // Shadow 默认丢掉依赖自带的 module-info，这里留着，jar 内容和以前一致
+    setExcludes(excludes.findAll { !it.endsWith('module-info.class') })
+    // 包名沿用以前复制进源码的 Metrics 所在的包
+    relocate('org.bstats', 'com.flameforge.banit.bstats') {
+        exclude 'org.bstats.bukkit.**'
+    }
+    relocate 'org.bstats.bukkit', 'com.flameforge.banit.bstats'
 }
