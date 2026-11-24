@@ -198,7 +198,7 @@ public class DataManager {
     public void initialize() {
         storage.initialize();
         loadDataToCache();
-        plugin.getLogger().info("§a数据缓存加载完成");
+        plugin.getLogger().info("数据缓存加载完成");
     }
 
     /**
@@ -304,37 +304,37 @@ public class DataManager {
                     case "Item":
                         if (isItemEntryInvalid(info)) {
                             toRemoveItems.add(serialNumber);
-                            plugin.getLogger().warning(Banit.getLanguageManager().getMessage("purge.invalid-item")
+                            plugin.getLogger().warning(plainLog(Banit.getLanguageManager().getMessage("purge.invalid-item")
                                     .replace("{serial}", serialNumber)
                                     .replace("{id}", String.valueOf(info.get("ID")))
-                                    .replace("{world}", world));
+                                    .replace("{world}", world)));
                         }
                         break;
                     case "Block":
                         if (isBlockEntryInvalid(info)) {
                             toRemoveBlocks.add(serialNumber);
-                            plugin.getLogger().warning(Banit.getLanguageManager().getMessage("purge.invalid-block")
+                            plugin.getLogger().warning(plainLog(Banit.getLanguageManager().getMessage("purge.invalid-block")
                                     .replace("{serial}", serialNumber)
                                     .replace("{id}", String.valueOf(info.get("ID")))
-                                    .replace("{world}", world));
+                                    .replace("{world}", world)));
                         }
                         break;
                     case "Entity":
                         if (isEntityEntryInvalid(info)) {
                             toRemoveEntities.add(serialNumber);
-                            plugin.getLogger().warning(Banit.getLanguageManager().getMessage("purge.invalid-entity")
+                            plugin.getLogger().warning(plainLog(Banit.getLanguageManager().getMessage("purge.invalid-entity")
                                     .replace("{serial}", serialNumber)
                                     .replace("{entityType}", String.valueOf(info.get("EntityType")))
-                                    .replace("{world}", world));
+                                    .replace("{world}", world)));
                         }
                         break;
                     case "Ench":
                         if (isEnchEntryInvalid(info)) {
                             toRemoveEnchs.add(serialNumber);
-                            plugin.getLogger().warning(Banit.getLanguageManager().getMessage("purge.invalid-ench")
+                            plugin.getLogger().warning(plainLog(Banit.getLanguageManager().getMessage("purge.invalid-ench")
                                     .replace("{serial}", serialNumber)
                                     .replace("{enchName}", String.valueOf(info.get("EnchName")))
-                                    .replace("{world}", world));
+                                    .replace("{world}", world)));
                         }
                         break;
                 }
@@ -360,8 +360,8 @@ public class DataManager {
         }
 
         if (removedCount > 0) {
-            plugin.getLogger().info(Banit.getLanguageManager().getMessage("purge.summary")
-                    .replace("{count}", String.valueOf(removedCount)));
+            plugin.getLogger().info(plainLog(Banit.getLanguageManager().getMessage("purge.summary")
+                    .replace("{count}", String.valueOf(removedCount))));
         }
     }
 
@@ -1734,6 +1734,10 @@ public class DataManager {
             return true;
         }
     }
+
+    // 日志不认颜色码，Logger 自己也会加 [BanIt] 前缀
+    private static String plainLog(String message) {
+        String plain = org.bukkit.ChatColor.stripColor(message);
+        return plain.startsWith("[BanIt] ") ? plain.substring(8) : plain;
+    }
 }
-
-

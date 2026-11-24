@@ -1189,7 +1189,7 @@ public class Events implements Listener {
 
         } catch (Exception e) {
             if (configManager.isBlockCheckDebug()) {
-                Banit.plugin.getLogger().warning("[BanIt] Error checking chunk: " + e.getMessage());
+                Banit.plugin.getLogger().warning("Error checking chunk: " + e.getMessage());
             }
         }
     }
